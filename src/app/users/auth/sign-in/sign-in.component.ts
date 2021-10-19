@@ -23,6 +23,12 @@ export class SignInComponent implements OnInit, OnDestroy {
     private userAuthService: AuthService,
     private spinner: NgxSpinnerService
   ) {
+
+    const userAuthData = localStorage.getItem('userAuthData') !== null ? JSON.parse(localStorage.getItem('userAuthData')) : null
+
+    if (userAuthData) {
+      this.userAuthService.userAuthData.next(userAuthData)
+    }
   }
 
   ngOnInit(): void {
@@ -46,6 +52,7 @@ export class SignInComponent implements OnInit, OnDestroy {
               (account) => {
                 const address = account.result[0]
                 this.userAuthService.userAuthData.next({wallet_address: address})
+                localStorage.setItem('userAuthData', JSON.stringify({wallet_address: address}))
                 this.spinner.hide('process')
               },
               (error) => {
@@ -67,6 +74,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   public onDisconnectWallet() {
     this.userAuthService.userAuthData.next(null)
+    localStorage.removeItem('userAuthData')
     this.isLogging = false
   }
 

@@ -1,12 +1,14 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import {SignInComponent} from './sign-in/sign-in.component';
 
+import { AuthGuard } from './auth.guard';
 import {AuthService} from './auth.service';
+
 import {NgxSpinnerModule} from 'ngx-spinner';
-import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -40,7 +42,8 @@ const routes: Routes = [
     FormsModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard
   ]
 })
 export class AuthModule {
