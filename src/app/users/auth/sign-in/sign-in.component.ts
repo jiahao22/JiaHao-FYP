@@ -33,8 +33,6 @@ export class SignInComponent implements OnInit, OnDestroy {
         }
       }
     )
-
-
   }
 
   /* 1 - MetaMask */
