@@ -28,10 +28,8 @@ export class SignInComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subs = this.userAuthService.userAuthData.subscribe(
       (userAuthData) => {
-        if (userAuthData.wallet_address) {
+        if (userAuthData) {
           this.isLogging = true
-        } else {
-          this.isLogging = false
         }
       }
     )
@@ -70,7 +68,8 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   public onDisconnectWallet() {
-
+    this.userAuthService.userAuthData.next(null)
+    this.isLogging = false
   }
 
 
