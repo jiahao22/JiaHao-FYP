@@ -1,15 +1,67 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+
+import Web3 from 'web3';
+
+declare let window: any;
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+
+  private subs: Subscription
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  /* 1 - MetaMask */
+  public onConnectWallet(type: number) {
+    switch (type) {
+      case 1 : {
+        this.connectToMetaMask().then(
+          () => {
+
+          }
+        )
+        break;
+      }
+      default: {
+        this.connectToMetaMask().then(
+          () => {
+
+          }
+        )
+        break;
+      }
+    }
+  }
+
+  async connectToMetaMask() {
+    if (window.ethereum) {
+      // window.web3 = new Web3(window.ethereum)
+      // await window.ethereum.enable;
+    }
+    // if (window.ethereum) {
+    //   window.web3 = new Web3(window.ethereum);
+    //   await window.ethereum.enable;
+    // } else if (window.web3) {
+    //   window.web3 = new Web3(window.web3.currentProvider);
+    // } else {
+    //   window.alert('Non-Ethereum browser detected. You Should consider using MetaMask!');
+    // }
+
+  }
+
+  ngOnDestroy() {
+    if (this.subs) {
+      this.subs.unsubscribe()
+    }
+  }
 }

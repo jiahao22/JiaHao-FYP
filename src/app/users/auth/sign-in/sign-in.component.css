@@ -1,0 +1,8 @@
+.login {
+  padding: 20px;
+}
+
+li a {
+  font-weight: bold;
+  cursor: pointer;
+}
