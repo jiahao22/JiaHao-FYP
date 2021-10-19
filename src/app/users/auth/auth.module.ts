@@ -4,6 +4,10 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {SignInComponent} from './sign-in/sign-in.component';
 
+import {AuthService} from './auth.service';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import { FormsModule } from '@angular/forms';
+
 const routes: Routes = [
   {
     path: '',
@@ -31,7 +35,12 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgxSpinnerModule,
+    FormsModule
+  ],
+  providers: [
+    AuthService
   ]
 })
 export class AuthModule {

@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 
+import {AuthService} from '../auth.service';
+
 import Web3 from 'web3';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 declare let window: any;
-
-declare let ethereum: any;
 
 @Component({
   selector: 'app-sign-in',
@@ -14,13 +15,28 @@ declare let ethereum: any;
 })
 export class SignInComponent implements OnInit, OnDestroy {
 
+  public isLogging: boolean = false
 
   private subs: Subscription
 
-  constructor() {
+  constructor(
+    private userAuthService: AuthService,
+    private spinner: NgxSpinnerService
+  ) {
   }
 
   ngOnInit(): void {
+    this.subs = this.userAuthService.userAuthData.subscribe(
+      (userAuthData) => {
+        if (userAuthData.wallet_address) {
+          this.isLogging = true
+        } else {
+          this.isLogging = false
+        }
+      }
+    )
+
+
   }
 
   /* 1 - MetaMask */
@@ -29,12 +45,15 @@ export class SignInComponent implements OnInit, OnDestroy {
       case 1 : {
         this.connectToMetaMask().then(
           () => {
+            this.spinner.show('process')
             window.ethereum.send('eth_requestAccounts').then(
               (account) => {
-                console.log(account.result[0])
+                const address = account.result[0]
+                this.userAuthService.userAuthData.next({wallet_address: address})
+                this.spinner.hide('process')
               },
               (error) => {
-                console.log(error)
+                this.spinner.hide('process')
               }
             )
           },
@@ -48,6 +67,10 @@ export class SignInComponent implements OnInit, OnDestroy {
         break;
       }
     }
+  }
+
+  public onDisconnectWallet() {
+
   }
 
 
