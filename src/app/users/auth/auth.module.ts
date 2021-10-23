@@ -1,51 +1,29 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import {SignInComponent} from './sign-in/sign-in.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
-import { AuthGuard } from './auth.guard';
-import {AuthService} from './auth.service';
-
-import {NgxSpinnerModule} from 'ngx-spinner';
+import { UserSharedModule } from '../shared/user.shared.module';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'sign-in',
   },
   {
-    path: 'auth',
-    children: [
-      {
-        path: '',
-        redirectTo: 'sign-in'
-      },
-      {
-        path: 'sign-in',
-        component: SignInComponent
-      },
-    ]
+    path: 'sign-in',
+    component: SignInComponent,
   },
-
-]
+  {
+    path: 'sign-up/:wallet_address',
+    component: SignUpComponent,
+  },
+];
 
 @NgModule({
-  declarations: [
-    SignInComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    NgxSpinnerModule,
-    FormsModule
-  ],
-  providers: [
-    AuthService,
-    AuthGuard
-  ]
+  declarations: [SignInComponent, SignUpComponent],
+  imports: [RouterModule.forChild(routes), UserSharedModule],
+  providers: [],
 })
-export class AuthModule {
-
-}
+export class AuthModule {}

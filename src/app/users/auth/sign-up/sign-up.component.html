@@ -1,0 +1,108 @@
+<!-- Loading Spinner -->
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+>
+  <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+<!-- Process Spinner -->
+<ngx-spinner
+  name="process"
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-pulse"
+  [fullScreen]="true"
+>
+  <p style="color: white">Processing...</p>
+</ngx-spinner>
+
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-12 col-lg-6">
+      <div class="register">
+        <h1>Create Account.</h1>
+        <p>Please enter your fullname & email to register.</p>
+        <br />
+        <div>
+          <form [formGroup]="form">
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="hasError && errorMessage"
+            >
+              {{ errorMessage }}
+            </div>
+
+            <!-- Address -->
+            <div class="form-group">
+              <label for="address">Address:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                readonly
+                formControlName="address"
+              />
+            </div>
+            <!-- Fullname -->
+            <div class="form-group">
+              <label for="fullname">Your fullname:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="fullname"
+                formControlName="fullname"
+              />
+
+              <div
+                class="text-danger"
+                *ngIf="
+                  form.get('fullname').touched && !form.get('fullname').value
+                "
+              >
+                * This field is required.
+              </div>
+            </div>
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email">Your E-Mail:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="email"
+                formControlName="email"
+              />
+
+              <div
+                class="text-danger"
+                *ngIf="form.get('email').touched && !form.get('email').value"
+              >
+                * This field is required.
+              </div>
+
+              <div
+                class="text-danger"
+                *ngIf="form.get('email').value && !form.get('email').valid"
+              >
+                * Invalid E-Mail format.
+              </div>
+            </div>
+            <!-- Submit button -->
+            <button
+              (click)="onSubmit()"
+              type="submit"
+              class="btn btn-primary btn-lg btn-block"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
