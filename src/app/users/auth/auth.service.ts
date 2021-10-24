@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ReplaySubject, Subject} from 'rxjs';
+import {Router} from '@angular/router';
 
 import * as moment from 'moment';
-import {Router} from '@angular/router';
 
 export interface userAuthData {
   wallet_address: string;
