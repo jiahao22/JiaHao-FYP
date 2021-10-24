@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   {
@@ -9,13 +9,17 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () =>
-      import('./users/auth/auth.module').then((m) => m.AuthModule),
+    loadChildren: () => import('./users/auth/auth.module').then((m) => m.AuthModule),
   },
+  {
+    path: 'merchant',
+    loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantsModule)
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

@@ -23,10 +23,10 @@ const routes: Routes = [
         path: 'products',
         loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
       },
-      {
-        path: 'merchants',
-        loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantsModule)
-      },
+      // {
+      //   path: 'merchants',
+      //   loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantsModule)
+      // },
       {
         path: 'about-us',
         component: AboutUsComponent
