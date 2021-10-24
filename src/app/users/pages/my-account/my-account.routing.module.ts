@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AddressesComponent } from './addresses/addresses.component';
-import { MyAccountComponent } from './my-account.component';
-import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
-import { OrdersComponent } from './orders/orders.component';
-import { ProfileComponent } from './profile/profile.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+
+import {AddressesComponent} from './addresses/addresses.component';
+import {MyAccountComponent} from './my-account.component';
+import {OrderDetailComponent} from './orders/order-detail/order-detail.component';
+import {OrdersComponent} from './orders/orders.component';
+import {ProfileComponent} from './profile/profile.component';
+import {AddAddressComponent} from './addresses/add-address/add-address.component';
+import {EditAddressComponent} from './addresses/edit-address/edit-address.component';
 
 const routes: Routes = [
   {
@@ -24,7 +27,20 @@ const routes: Routes = [
           },
           {
             path: 'addresses',
-            component: AddressesComponent,
+            children: [
+              {
+                path: '',
+                component: AddressesComponent,
+              },
+              {
+                path: 'add-address',
+                component: AddAddressComponent
+              },
+              {
+                path: 'edit-address/:address_id',
+                component: EditAddressComponent
+              }
+            ]
           },
           {
             path: 'orders',
@@ -49,4 +65,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MyAccountRoutingModule {}
+export class MyAccountRoutingModule {
+}

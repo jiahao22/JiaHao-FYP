@@ -1,13 +1,16 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { AuthService } from '../auth.service';
-import { loginResponse } from '../sign-in/sign-in.component';
+import {HttpClient} from '@angular/common/http';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {take} from 'rxjs/operators';
+
+import {AuthService} from '../auth.service';
+
+import {environment} from 'src/environments/environment';
+import {loginResponse} from '../sign-in/sign-in.component';
+
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-sign-up',
@@ -30,7 +33,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private userAuthService: AuthService,
     private spinner: NgxSpinnerService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.initForm();

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  request_url: 'http://localhost:5000/api/'
+  // request_url: 'http://localhost:5000/api/'
+  request_url: 'https://zhentong.xyz/api/',
 };
 
 /*

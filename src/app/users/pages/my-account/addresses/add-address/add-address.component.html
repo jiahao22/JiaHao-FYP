@@ -1,0 +1,93 @@
+<!-- Loading Spinner -->
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+  <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+<!-- Process Spinner -->
+<ngx-spinner name="process" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-pulse"
+             [fullScreen]="true">
+  <p style="color: white">Processing...</p>
+</ngx-spinner>
+
+<div class="container-fluid" *ngIf="!isLoading">
+  <div class="row">
+    <div class="col">
+      <div class="d-">
+        <h3 class="d-inline-block">Add Address</h3>
+        &nbsp;<a class="btn btn-light" routerLink="../">Back To Addresses</a>
+      </div>
+      <hr>
+
+      <form [formGroup]="form">
+        <div class="form-group">
+          <label for="fullname">Full Name:</label>
+          <input type="text" id="fullname" class="form-control" formControlName="fullname">
+
+          <div class="text-danger" *ngIf="form.get('fullname').touched && !form.get('fullname').value">
+            * This is required field.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone-number">Phone Number:</label>
+          <input type="text" id="phone-number" class="form-control" formControlName="phone_number">
+
+          <div class="text-danger" *ngIf="form.get('phone_number').touched && !form.get('phone_number').value">
+            * This is required field.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address_line1">Address Line 1:</label>
+          <input type="text" id="address_line1" class="form-control" formControlName="address_line1">
+
+          <div class="text-danger" *ngIf="form.get('address_line1').touched && !form.get('address_line1').value">
+            * This is required field.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address_line2">Address Line 2:</label>
+          <input type="text" id="address_line2" class="form-control" formControlName="address_line2">
+        </div>
+
+        <div class="form-group">
+          <label for="city">City:</label>
+          <input type="text" id="city" class="form-control" formControlName="city">
+
+          <div class="text-danger" *ngIf="form.get('city').touched && !form.get('city').value">
+            * This is required field.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="state">State:</label>
+          <select class="form-control" id="state" formControlName="state">
+            <option value="-"> -- Please Select --</option>
+            <option *ngFor="let state of states" [value]="state.state_id">{{ state.state_name }}</option>
+          </select>
+
+          <div class="text-danger"
+               *ngIf="(form.get('state').touched && !form.get('state').value) || (form.get('state').touched && form.get('state').value === '-')">
+            * This is required field.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="postcode">Postcode:</label>
+          <input type="text" id="postcode" class="form-control" formControlName="postcode">
+
+          <div class="text-danger" *ngIf="form.get('postcode').touched && !form.get('postcode').value">
+            * This is required field.
+          </div>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" class="btn btn-dark" (click)="onSubmit()">Submit</button>
+        </div>
+      </form>
+
+
+    </div>
+  </div>
+</div>

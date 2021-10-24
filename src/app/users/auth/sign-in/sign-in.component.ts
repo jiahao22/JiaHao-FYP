@@ -1,14 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {take} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 
-import { AuthService } from '../auth.service';
+import {AuthService} from '../auth.service';
 
 import Web3 from 'web3';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {environment} from 'src/environments/environment';
+import {Router} from '@angular/router';
 
 declare let window: any;
 
@@ -36,9 +36,11 @@ export class SignInComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private http: HttpClient,
     private router: Router
-  ) {}
+  ) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   /* 1 - MetaMask */
   public onConnectWallet(type: number) {
