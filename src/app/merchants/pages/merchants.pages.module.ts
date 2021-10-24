@@ -5,8 +5,6 @@ import {MerchantsSharedModule} from '../shared/merchants.shared.module';
 
 import {DashboardComponent} from './dashboard/dashboard.component';
 
-
-
 @NgModule({
   declarations: [
     DashboardComponent
