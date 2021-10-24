@@ -24,14 +24,14 @@ export class AuthService {
 
   public checkUserLoginSession() {
     const userAuthData = localStorage.getItem('userAuthData') !== null ? JSON.parse(localStorage.getItem('userAuthData')) as userAuthData : null;
-
-    if (moment().unix() > userAuthData.expired_on) {
-      this.userAuthData.next(null);
-      this.router.navigate(['/auth/sign-in']);
-      localStorage.removeItem('userAuthData');
-      return
+    if (userAuthData) {
+      if (moment().unix() > userAuthData.expired_on) {
+        this.userAuthData.next(null);
+        this.router.navigate(['/auth/sign-in']);
+        localStorage.removeItem('userAuthData');
+        return
+      }
+      this.userAuthData.next(userAuthData)
     }
-
-    this.userAuthData.next(userAuthData)
   }
 }

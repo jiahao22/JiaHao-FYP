@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.spinner.show()
     this.subs = this.userAuthService.userAuthData
       .pipe(
-        // take(1),
+        take(1),
         switchMap(userAuthData => {
           this.userAuthData = userAuthData
           return this.http
