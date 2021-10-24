@@ -5,6 +5,7 @@ import {SignInComponent} from './sign-in/sign-in.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
 
 import {MerchantsSharedModule} from '../shared/merchants.shared.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -33,7 +34,8 @@ const routes: Routes = [
   ],
   imports: [
     RouterModule.forChild(routes),
-    MerchantsSharedModule
+    MerchantsSharedModule,
+    ReactiveFormsModule
   ]
 })
 export class MerchantAuthModule {

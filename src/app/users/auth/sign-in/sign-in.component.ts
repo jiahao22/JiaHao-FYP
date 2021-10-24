@@ -2,14 +2,15 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 import {AuthService} from '../auth.service';
 
-import Web3 from 'web3';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {environment} from 'src/environments/environment';
-import {Router} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
 
+import Web3 from 'web3';
+import * as Swal from 'sweetalert2'
 declare let window: any;
 
 export interface loginResponse {
@@ -55,12 +56,21 @@ export class SignInComponent implements OnInit, OnDestroy {
                 this.checkOnDatabase(address);
               },
               (error) => {
+                Swal.default.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: error.message,
+                })
                 this.spinner.hide('process');
               }
             );
           },
           (error) => {
-            console.log(error);
+            Swal.default.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error,
+            })
           }
         );
         break;
@@ -78,9 +88,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
     } else {
-      window.alert(
-        'Non-Ethereum browser detected. You Should consider using MetaMask!'
-      );
+      throw 'Non-Ethereum browser detected. You Should consider using MetaMask!'
     }
   }
 

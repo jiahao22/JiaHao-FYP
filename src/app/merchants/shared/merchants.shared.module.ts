@@ -22,7 +22,8 @@ import {NgxSpinnerModule} from 'ngx-spinner';
   exports: [
     HeaderComponent,
     FooterComponent,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    CommonModule
   ]
 })
 

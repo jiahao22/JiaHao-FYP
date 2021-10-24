@@ -1,3 +1,39 @@
+<!-- Loading Spinner -->
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+  <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+<!-- Process Spinner -->
+<ngx-spinner name="process" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-pulse"
+             [fullScreen]="true">
+  <p style="color: white">Processing...</p>
+</ngx-spinner>
+
 <app-header></app-header>
-<p>sign-in works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card mt-5">
+        <div class="card-body">
+          <h3 class="text-center">Sign In</h3>
+          <p class="text-center">Connect with one of our available wallet providers or create a new one.</p>
+
+          <div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a style="cursor: pointer">
+                  <img src="assets/images/metamask-logo.webp" width="24" height="24"/>&nbsp;MetaMask
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="text-center mt-2">
+            <a routerLink="/merchant/auth/sign-up">Don't have an account? Register here ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <app-footer></app-footer>
