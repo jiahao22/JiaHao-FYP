@@ -13,7 +13,10 @@ export class HeaderComponent implements OnInit {
 
   public userAuthData: userAuthData;
 
-  constructor(private userAuthService: AuthService, private router: Router) {
+  constructor(
+    private userAuthService: AuthService,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -30,7 +33,7 @@ export class HeaderComponent implements OnInit {
     this.isLoading = false;
   }
 
-  public onLogot() {
+  public onLogout() {
     this.userAuthService.userAuthData.next(null);
     localStorage.removeItem('userAuthData');
     this.isLogging = false;

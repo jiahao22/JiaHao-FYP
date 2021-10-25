@@ -88,11 +88,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.spinner.show();
     const data = {
       user_fullname: this.form.get('fullname').value,
-      user_email: this.form
-        .get('email')
-        .value.trim()
-        .toLowerCase()
-        .replace(/\s/g, ''),
+      user_email: this.form.get('email').value.trim().toLowerCase().replace(/\s/g, ''),
       wallet_address: this.form.get('address').value,
     };
 

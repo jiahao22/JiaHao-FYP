@@ -2,13 +2,31 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {take} from 'rxjs/operators';
+
+import {Router} from '@angular/router';
+import {environment} from '../../../../environments/environment';
+
+import {MerchantAuthService} from '../merchant.auth.service';
 
 import {NgxSpinnerService} from 'ngx-spinner';
 import * as Swal from 'sweetalert2'
-
 import Web3 from 'web3';
 
+
 declare let window: any;
+
+export interface MerchantAuthInterface {
+  access_token: string
+  expired_on: number
+  merchant_email: string
+  merchant_id: number
+  merchant_phone_number: string
+  merchant_shop_name: string
+  merchant_wallet_address: string
+  valid: boolean,
+  msg?: string
+}
 
 @Component({
   selector: 'app-sign-up',
@@ -23,7 +41,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   constructor(
     private http: HttpClient,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private merchantAuthService: MerchantAuthService,
+    private router: Router
   ) {
   }
 
@@ -49,7 +69,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
           Validators.required
         ]
       }),
-      merchant_wallet_address: new FormControl({value: null, disabled: true}, {
+      merchant_wallet_address: new FormControl(null, {
         validators: [
           Validators.required
         ]
@@ -62,7 +82,61 @@ export class SignUpComponent implements OnInit, OnDestroy {
     if (!this.form.valid) {
       return
     }
-    console.log(this.form.value)
+    this.spinner.show('process')
+
+    const data = {
+      merchant_email: this.form.get('merchant_email').value.trim().toLowerCase().replace(/\s/g, ''),
+      merchant_wallet_address: this.form.get('merchant_wallet_address').value,
+      merchant_shop_name: this.form.get('merchant_shop_name').value,
+      merchant_phone_number: this.form.get('merchant_phone_number').value
+    }
+
+    this.subs = this.http
+      .post<MerchantAuthInterface>(`${environment.request_url}merchant/auth/register`, data)
+      .pipe(
+        take(1)
+      )
+      .subscribe(
+        (response) => {
+          if (response.valid) {
+
+            const authData = {
+              wallet_address: response.merchant_wallet_address,
+              access_token: response.access_token,
+              expired_on: response.expired_on,
+              merchant_id: response.merchant_id,
+              merchant_email: response.merchant_email,
+              merchant_shop_name: response.merchant_shop_name,
+              merchant_phone_number: response.merchant_phone_number
+            };
+            this.merchantAuthService.merchantAuthData.next(authData)
+            localStorage.setItem('merchantAuthData', JSON.stringify(authData));
+            this.spinner.hide('process').then(
+              () => {
+                Swal.default.fire(
+                  'Success!',
+                  '',
+                  'success'
+                ).then(
+                  () => {
+                    this.router.navigate(['/merchant']);
+                  }
+                )
+              }
+            )
+          } else {
+            this.spinner.hide('process').then(
+              () => {
+                Swal.default.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: response.msg
+                })
+              }
+            )
+          }
+        }
+      )
   }
 
   public connectWallet() {

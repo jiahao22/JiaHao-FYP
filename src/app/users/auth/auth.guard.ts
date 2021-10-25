@@ -18,10 +18,7 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const userAuthData =
-      localStorage.getItem('userAuthData') !== null
-        ? (JSON.parse(localStorage.getItem('userAuthData')) as userAuthData)
-        : null;
+    const userAuthData = localStorage.getItem('userAuthData') !== null ? (JSON.parse(localStorage.getItem('userAuthData')) as userAuthData) : null;
 
     if (userAuthData) {
       // If the token expired.

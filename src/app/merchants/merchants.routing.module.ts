@@ -1,13 +1,16 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
+import {MerchantAuthGuard} from './auth/merchant.auth.guard';
+
 const routes: Routes = [
   {
     path: '',
     children: [
       {
         path: '',
-        loadChildren: () => import('./pages/merchants.pages.module').then(m => m.MerchantsPagesModule)
+        loadChildren: () => import('./pages/merchants.pages.module').then(m => m.MerchantsPagesModule),
+        canActivate: [MerchantAuthGuard]
       },
       {
         path: 'auth',
